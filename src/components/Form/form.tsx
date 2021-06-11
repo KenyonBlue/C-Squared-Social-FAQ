@@ -1,18 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useStyles from "./form-styles";
 import { Typography, Paper, TextField, Button } from "@material-ui/core";
-import FIleBase from "react-file-base64";
-import { clear } from "console";
+import FileBase from "react-file-base64";
+import { useDispatch } from 'react-redux';
+import { createPost, updatePost } from "../../actions/post";
+import { useSelector } from "react-redux";
 
 interface PostData {
   creator: string;
   title: string;
   tags: string;
   message: string;
-  selectedFiles: string;
+  selectedFiles: any;
 }
 
-const Form = () => {
+const Form = ({currentId, setCurrentId}) => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const post = useSelector((state: any) => currentId ? state.posts.find((post) => post._id) : null ) ; 
   const [postData, setPostData] = useState({
     creator: "",
     title: "",
@@ -21,8 +26,20 @@ const Form = () => {
     selectedFiles: "",
   });
 
-  const handleSubmit = () => {
-    return console.log("form submitted");
+  useEffect(() => {
+    if (post) {
+      setPostData(post)
+    }
+  })
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (currentId) {
+      dispatch(updatePost( currentId, postData))
+    } else {
+      dispatch(createPost(postData))
+    }
   };
 
 
@@ -30,22 +47,19 @@ const clearForm = () => {
   return console.log("form cleared");
 }
 
-  const handleChange = (postData: PostData) => {
+  const handleChange = (postData: PostData) => {    
     return setPostData(postData);
   };
 
-
-
-  const classes = useStyles();
   return (
     <Paper className={classes.paper}>
       <form
         autoComplete="off"
         noValidate
         className={`${classes.root} ${classes.form} `}
-        // onSubmit={handleSubmit()}
+        onSubmit={handleSubmit}
       >
-        <Typography variant="h6"> Creating a Memory</Typography>
+        <Typography variant="h6"> Create Bug</Typography>
         <TextField
           name="creator"
           variant="outlined"
@@ -83,7 +97,7 @@ const clearForm = () => {
           onChange={(e) => handleChange({ ...postData, tags: e.target.value })}
         />
         <div className={classes.fileInput}>
-          <FIleBase
+          <FileBase
             type="file"
             multiple={false}
             onDone={(base64) =>

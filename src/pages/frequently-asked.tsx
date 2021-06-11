@@ -7,6 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CSquaredLogo from '../components/c-squared-logo';
+import companyLogo from '../assets/better_logo.png';
 
 
 
@@ -26,6 +27,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   paper: {
+    display: 'flex',
+    backgroundColor: 'rgb(31, 31, 31)',
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
     padding: theme.spacing(2),
@@ -56,8 +59,9 @@ const FrequentlyAsked = () => {
       </AppBar>
       <main className={classes.layout}>
         <Paper className={classes.paper}>
-          <Typography component="h1" variant="h4" align="center">
-            Frequently Asked Questions
+          <img style={{height: 30}} src={companyLogo}/>
+          <Typography component="h1" variant="h5" style={{color: 'whitesmoke', marginLeft: 5}} align="center">
+            {`BUG TRACKER`}
           </Typography>
         </Paper>
       </main>

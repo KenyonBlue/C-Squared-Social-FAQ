@@ -7,6 +7,28 @@ export const getPosts = () => async (dispatch) => {
         const { data } = await api.fetchPost()
         dispatch({ type: 'FETCH_ALL', payload: data});
     } catch (error) {
-    console.log("🚀 ~ file: post.js ~ line 10 ~ getPosts ~ error", error.message)
+    console.log("error: ", error.message)
+    }
+}
+
+export const createPost = (post) => async (dispatch) => {
+    try {
+        const { data } = await api.createPost(post);
+        console.log("🚀 ~ file: post.js ~ line 17 ~ createPost ~ data", data)
+        
+        dispatch({type: 'CREATE', payload: data})
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+export const updatePost = (id, post) => async (dispatch) => {
+    try {
+        const { updatedData } = await api.updatePost(id, post);
+        console.log("🚀 ~ file: post.js ~ line 17 ~ createPost ~ data", updatedData)
+        
+        dispatch({type: 'UPDATE', payload: updatedData})
+    } catch (error) {
+        console.log(error.message)
     }
 }
