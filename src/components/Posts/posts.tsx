@@ -11,8 +11,7 @@ const Posts = ({ setCurrentId }) => {
 
   return (
     <>
-      {!posts.length ? (
-        <CircularProgress />
+      {!posts.length ? ( <CircularProgress />
       ) : (
         <Grid
           className={classes.mainContainer}
