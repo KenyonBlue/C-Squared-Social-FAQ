@@ -40,10 +40,6 @@ const Form = ({ currentId, setCurrentId }) => {
     }
   }, [post]);
 
-  // useEffect(() => {
-  //     setPostData(postData);
-  // }, [postData]);
-
   const handleSubmit = (e) => {
     if (currentId) {
       dispatch(updatePost(currentId, postData));
@@ -63,10 +59,6 @@ const Form = ({ currentId, setCurrentId }) => {
       selectedFiles: "",
     })
   };
-
-  // const handleChange = (post: PostData) => {
-  //   return setPostData(post);
-  // };
 
   return (
     <Paper className={classes.paper}>
@@ -97,7 +89,7 @@ const Form = ({ currentId, setCurrentId }) => {
         <TextField
           name="message"
           variant="outlined"
-          label="message"
+          label="description"
           fullWidth
           value={postData.message}
           onChange={(e) =>
@@ -107,7 +99,7 @@ const Form = ({ currentId, setCurrentId }) => {
         <TextField
           name="tags"
           variant="outlined"
-          label="tags"
+          label="bug_id"
           fullWidth
           value={postData.tags}
           onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
